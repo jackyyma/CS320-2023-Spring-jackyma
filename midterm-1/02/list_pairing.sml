@@ -25,11 +25,31 @@ list_pairing([1,2,3,4]) = ([(1,4),(2,3)], NONE)
 //
 *)
 (* ****** ****** *)
-(*
-fun
-list_pairing
-(xs: 'a list): ('a * 'a) list * 'a option = ...
-*)
+
+fun get_head [] = raise Empty
+    | get_head [x] = x
+    | get_head (xs) = hd xs;
+
+fun get_tail [] = raise Empty
+    | get_tail [x] = x
+    | get_tail (_::xs) = get_tail xs;
+
+fun delete (number, list) = List.filter(fn x => x <> number) list;
+
+fun delete_hd_tl (head, tail, list) = List.filter(fn x => x <> head) List.filter(fn x => x <> tail);
+
+fun find_length(xs) = length xs;
+
+val ys = [];
+
+fun list_pairing(xs: 'a list): ('a * 'a) list * 'a option =
+    val ys = [];
+    if find_length(xs) == 0 then ys = ([], NONE) else
+    if find_length(xs) == 1 then ys = ([], SOME(get_head(xs))) else
+    if find_length(xs) == 2 then ys = ([get_head(xs), get_tail(xs)], NONE) else
+    if find_length(xs) == 3 then ys = ([get_head(xs), get_tail(xs)], SOME(delete(get_tail(xs) get_tail(xs)))) else
+    ys = ([get_head(xs), get_tail(xs)]) delete_hd_tl(get_head(xs), get_tail(xs), xs) ys::([get_head(xs), get_tail(xs)], NONE);
+
 (* ****** ****** *)
 
 (* end of [CS320-2023-Spring-midterm1-list_pairing.sml] *)
