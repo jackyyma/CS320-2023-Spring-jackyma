@@ -6,6 +6,7 @@ int2real
 coerces an int into a real:
 *)
 val int2real = Real.fromInt
+
 (* ****** ****** *)
 (*
 HX-2023-03-01: midterm1-01: 10 points
@@ -30,20 +31,17 @@ functions in your implementation of list_averages.
 //
 *)
 (* ****** ****** *)
-fun list_length(xs) = length xs;
+(* val xs = 1.0::2.0::3.0::4.0::[]; *)
 
-fun map y [] = []
- | map y (x::xs) = (y x)::(map y xs);
+fun sumList (x::y::xs): real list = x :: sumList (x+y::xs)
+    | sumList xs = xs;
 
-val divisor = 0.0;
+fun divList (x::xs, acc) = x/acc::divList(xs, acc + 1.0)
+    | divList([], acc) = [];
 
-fun sumList (x::y::xs) = x :: sumList (x+y::xs)
-  | sumList xs = xs;
+fun list_averages(xs: real list): real list = divList(sumList(xs), 1.0);
 
-fun avgList (x::xs) = x :: avgList (x/divisor+1.0::xs)
-  | avgList xs = xs;
-(* fun list_averages(xs: real list): real list = *)
-
+list_averages(xs);
 (* ****** ****** *)
 
 (* end of [CS320-2023-Spring-midterm1-list_averages.sml] *)
